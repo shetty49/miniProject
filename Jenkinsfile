@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         PATH = "/opt/homebrew/bin:/usr/local/bin:$PATH"
+        DOCKER_BFLASK_IMAGE = "pranamshetty/my-flask-app:latest
     }
     stages {
         stage('Check and Stop Existing Container') {
