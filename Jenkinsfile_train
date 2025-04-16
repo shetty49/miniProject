@@ -8,12 +8,12 @@ pipeline {
         stage('Check and Stop Existing Container') {
             steps {
                 script {
-                    def containerId = sh(script: "docker ps --filter 'publish=5000' --format '{{.ID}}'", returnStdout: true).trim()
+                    def containerId = sh(script: "docker ps --filter 'publish=8001' --format '{{.ID}}'", returnStdout: true).trim()
 
                     if (containerId) {
                         // Stop the container
                         sh "docker stop ${containerId}"
-                        echo "Stopped container ${containerId} that was using port 5000"
+                        echo "Stopped container ${containerId} that was using port 8001"
 
                         // Verify the container is stopped
                         def containerRunning = sh(script: "docker ps --filter 'id=${containerId}' --format '{{.ID}}'", returnStdout: true).trim()
@@ -24,7 +24,7 @@ pipeline {
                             echo "Container ${containerId} successfully stopped."
                         }
                     } else {
-                        echo "No container found using port 5000."
+                        echo "No container found using port 8001."
                     }
                 }
             }
