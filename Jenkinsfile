@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PATH = "/opt/homebrew/bin:/usr/local/bin:$PATH"
-        DOCKER_BFLASK_IMAGE = "pranamshetty/my-flask-app:latest"
+       // DOCKER_BFLASK_IMAGE = "pranamshetty/my-flask-app:latest"
     }
     stages {
         stage('Check and Stop Existing Container') {
@@ -42,7 +42,7 @@ pipeline {
         }
         stage('Push image to Registry') {
             steps {
-                withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_CREDS}", passwordVariable: 'namana2004', usernameVariable: 'pranamshetty')]) {
+                withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_CREDS}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io"
                     sh 'docker push $DOCKER_BFLASK_IMAGE'
                 }
